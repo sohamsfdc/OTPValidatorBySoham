@@ -1,0 +1,44 @@
+({
+	handleClick : function(component, event, helper) {
+		helper.sendOTP(component);
+	},
+    
+    handleClick1 : function(component, event, helper) {
+		//const getApexcontrollermethod1 = component.get("c.OTPValidation");
+		const InputOTP = component.find("OTP").get("v.value");
+        const ActualOTP = component.get("v.OTPGenerated");
+       
+         console.log('v.ActualOTP Controller -->' + component.get("v.OTPGenerated"));
+        
+        if(InputOTP == ActualOTP)
+        {
+            component.set("v.OTPValidated", true);
+            console.log('v.OTPValidated -->' + component.get("v.OTPValidated"));
+        }
+        
+        console.log('v.OTPValidated -->' + component.get("v.OTPValidated"));
+       
+        /*
+        getApexcontrollermethod1.setParams({
+            InputOTP: OTP
+            
+        });
+        
+        getApexcontrollermethod1.setCallback(this,function(response){
+            
+            
+            
+            if(response.getState() == 'SUCCESS')
+            {
+                component.set("v.OTPValidated", response.getReturnValue());
+            }
+            
+        });
+        
+        $A.enqueueAction(getApexcontrollermethod1);
+        console.log('v.OTPValidated -->' + component.get("v.OTPValidated"));
+        */
+	}
+   
+   
+})

@@ -1,0 +1,55 @@
+public class OTPValidator {
+    
+    public static String OTP = '';
+    @AuraEnabled
+    public static string sendOTP(String RecipientEmail)
+    {
+        String OTPGenereated = '';
+        Boolean OTPSent = True;
+        Integer randomNumber = Integer.valueof((Math.random() * (900000) + 100000));
+		System.debug('randomNumber  is'+randomNumber);
+        OTP = String.valueOf(randomNumber);
+        
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        String[] toAddresses = new String[] {RecipientEmail}; 
+        mail.setToAddresses(toAddresses);
+        mail.setSenderDisplayName('OTP Support From Soham and Sayak');
+        mail.setSubject('Validate Your OTP');
+        mail.setPlainTextBody('Your OTP is: ' + OTP);
+        
+        Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
+        
+   		Set<ID> targetIdsFailed = new Set<ID>();
+		for(Messaging.SendEmailResult rr:r)
+        {
+            System.debug('Email result ' + rr.IsSuccess());
+    
+            if(!rr.IsSuccess())
+              {
+                 OTPSent = False;
+                 break;
+              }
+    	} 
+        
+        system.debug('OTPSent --> ' + OTPSent);
+        if(OTPSent == TRUE)
+        {
+            OTPGenereated = OTP;
+        }
+        system.debug('OTPGenereated --> ' + OTPGenereated);
+        return OTPGenereated;
+    }
+    
+    @AuraEnabled
+    public static boolean OTPValidation(String InputOTP)
+    {
+        boolean OTPValidate = false;
+        system.debug('OTP --> ' + OTP);
+        if(InputOTP.equals(OTP))
+        {
+            OTPValidate = true;
+        }
+        return OTPValidate;
+    }
+
+}

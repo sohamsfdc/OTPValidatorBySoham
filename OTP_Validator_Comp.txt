@@ -1,0 +1,65 @@
+<aura:component controller="OTPValidator" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    
+    <aura:attribute name = "CheckDesign" type = "Boolean" default = "true"></aura:attribute>
+    <aura:attribute name = "OTPInput" type = "String"></aura:attribute>
+    <aura:attribute name = "EmailID" type = "String"></aura:attribute>
+    <aura:attribute name = "OTPSent" type = "Boolean" default = "False"></aura:attribute>
+    <aura:attribute name = "OTPGenerated" type = "String" ></aura:attribute>
+    <aura:attribute name = "OTPValidated" type = "Boolean" default = "False"></aura:attribute>
+	<!--<aura:handler name = "init" value = "{!this}" action = "{!c.init}"></aura:handler>-->
+    
+    <lightning:card title = "OTP Validator">
+    	
+        <lightning:layout></lightning:layout>
+        <!--<div class="slds-p-around_medium">-->
+        <!--<div class="slds-align_absolute-center" style="height:5rem">-->
+        <div class="slds-box">
+        
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input aura:id = "EmailID" label = "Enter Email Address" /> 
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem size="8" padding="around-small">
+                <lightning:button variant="brand" label="Send OTP" title="Brand action" onclick="{! c.handleClick }" />
+        	</lightning:layoutItem>
+        </div>
+        
+        <div class="slds-p-around_medium" horizontalAlign="space">
+            
+            <aura:if isTrue = "{!v.OTPSent}">
+                
+                
+                <lightning:layoutItem size="4" padding="around-small">
+                	<lightning:input aura:id = "OTP" label = "Enter OTP" /> 
+                </lightning:layoutItem>
+                
+                <lightning:layoutItem size="8" padding="around-small">
+                	<lightning:button variant="brand" label="Validate OTP" title="Brand action" onclick="{! c.handleClick1 }" />
+           		
+                </lightning:layoutItem>
+                
+                
+                
+                
+                
+            </aura:if>
+            
+            <aura:set attribute = "else">
+                <p>Error</p>
+               
+            </aura:set>
+        
+            <aura:if isTrue = "{!v.OTPValidated}">
+                    <p>OTP Validated</p>
+            </aura:if>
+        </div>
+        
+        
+        
+    
+    
+    </lightning:card>
+    
+    
+</aura:component>

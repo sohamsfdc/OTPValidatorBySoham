@@ -1,0 +1,30 @@
+({
+	sendOTP : function(component) {
+        
+        const getApexcontrollermethod = component.get("c.sendOTP");
+		const Email = component.find("EmailID").get("v.value");
+        var OTPSent = true;
+        getApexcontrollermethod.setParams({
+            RecipientEmail: Email
+            
+        });
+        
+        getApexcontrollermethod.setCallback(this,function(a){
+            
+            if(a.getState() == 'SUCCESS')
+            {
+                component.set("v.OTPGenerated", a.getReturnValue());
+                console.log('v.ActualOTP -->' + component.get("v.OTPGenerated"));
+                component.set("v.OTPSent",OTPSent);
+            }
+            
+        });
+        
+        $A.enqueueAction(getApexcontrollermethod);
+	},
+    
+    ValidateOTP : function(component) {
+        
+        
+	}
+})
